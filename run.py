@@ -127,11 +127,11 @@ def main():
     while True:
         feed = feedparser.parse(ARXIV_URL)
         handling_feed_error(feed)
-        
         if feed['updated'] == updated:
             time.sleep(10 * 60)
             continue
         updated = feed['updated']
+        print(f'updated at {updated}')
 
         datas_to_send_to_slack = []
         for entry in feed['entries']:
