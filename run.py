@@ -142,11 +142,8 @@ def main():
             data_to_send_to_slack = {'text': paper_info_text, **slack_user_info}
             datas_to_send_to_slack.append(json.dumps(data_to_send_to_slack))
 
-        if len(datas_to_send_to_slack) != 0:
-            notification = {'text': "<!channel> Today's arXiv update.", **slack_user_info}
-            requests.post(SLACK_WEBHOOK_URL, data=json.dumps(notification))
-            for data_to_send_to_slack in datas_to_send_to_slack:
-                requests.post(SLACK_WEBHOOK_URL, data=data_to_send_to_slack)
+        for data_to_send_to_slack in datas_to_send_to_slack:
+            requests.post(SLACK_WEBHOOK_URL, data=data_to_send_to_slack)
 
         time.sleep(10 * 60)
 
